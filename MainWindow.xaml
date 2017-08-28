@@ -5,17 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalClock"
         mc:Ignorable="d"
-        Title="MainWindow" Height="240" Width="480" Background="{x:Null}" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing">
+        Title="MainWindow" Height="240" Width="480" Background="{x:Null}" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="ChangeColor" Click="ChangeColor_Click" />
                 <MenuItem Header="ChangeSize" Click="ChangeSize_Click" />
+                <MenuItem Header="ChangeOpacity">
+                    <MenuItem Header="100%" Click="opacity100" />
+                    <MenuItem Header="90%" Click="opacity90" />
+                    <MenuItem Header="80%" Click="opacity80" />
+                    <MenuItem Header="70%" Click="opacity70" />
+                    <MenuItem Header="60%" Click="opacity60" />
+                    <MenuItem Header="50%" Click="opacity50" />
+                    <MenuItem Header="40%" Click="opacity40" />
+                    <MenuItem Header="30%" Click="opacity30" />
+                    <MenuItem Header="20%" Click="opacity20" />
+                    <MenuItem Header="10%" Click="opacity10" />
+                </MenuItem>
+                <MenuItem x:Name="StartWithWindows" Header="StartWithWindows" IsCheckable="True" Unchecked="StartWithWindows_Unchecked" Checked="StartWithWindows_Checked" />
                 <Separator />
                 <MenuItem Header="Close" Click="Close_Click" />
             </ContextMenu>
         </Grid.ContextMenu>
-        <Label x:Name="clockTimes" Content="88:88" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="SVN-Aleo" FontSize="94" Width="480" FontWeight="ExtraBold" Margin="0,30,0,70" Height="136" />
-        <Label x:Name="clockDates" Content="Wednesday, 00 September 0000" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="SVN-Aleo" FontSize="18" Width="480" FontWeight="Bold" Margin="0, 135, 0, 60" VerticalAlignment="Center"/>
+        <Label x:Name="clockTimes" RenderOptions.CachingHint="Cache" Content="88:88" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="SVN-Aleo" FontSize="94" Width="480" FontWeight="ExtraBold" Margin="0,30,0,70" Height="136" />
+        <Label x:Name="clockDates" RenderOptions.CachingHint="Cache" Content="Wednesday, 00 September 0000" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="SVN-Aleo" FontSize="18" Width="480" FontWeight="Bold" Margin="0, 135, 0, 60" VerticalAlignment="Center"/>
     </Grid>
 </Window>
