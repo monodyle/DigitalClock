@@ -1,0 +1,21 @@
+﻿<Window x:Class="DigitalClock.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DigitalClock"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="240" Width="480" Background="{x:Null}" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing">
+    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="ChangeColor" Click="ChangeColor_Click" />
+                <MenuItem Header="ChangeSize" Click="ChangeSize_Click" />
+                <Separator />
+                <MenuItem Header="Close" Click="Close_Click" />
+            </ContextMenu>
+        </Grid.ContextMenu>
+        <Label x:Name="clockTimes" Content="88:88" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="SVN-Aleo" FontSize="94" Width="480" FontWeight="ExtraBold" Margin="0,30,0,70" Height="136" />
+        <Label x:Name="clockDates" Content="Wednesday, 00 September 0000" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="Black" FontFamily="SVN-Aleo" FontSize="18" Width="480" FontWeight="Bold" Margin="0, 135, 0, 60" VerticalAlignment="Center"/>
+    </Grid>
+</Window>
