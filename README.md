@@ -1,18 +1,29 @@
 # Description
+
 DigitalClock is desktop clock widget. It's simple and small.
 
+
+
 Language: CSharp
+
 Require: .NET Framework 4.0
+
 
 # Demo
 ![Version 1.1](http://i.imgur.com/54sWqqa.png "First version")
+
 *First Version*
 
+
 ![Version 2.0](http://i.imgur.com/GI93AmS.png "Version 2.0")
+
 *Version 2.0*
 
+
 # Installation
+
 [Download here](https://github.com/monodyle/DigitalClock/releases)
+
 
 # Use Tutorial
 If you want it startup with windows, just create a shortcut to **startup folder**
