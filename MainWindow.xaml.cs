@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace DigitalClock
 {
@@ -74,16 +76,9 @@ namespace DigitalClock
                 this.Top = int.Parse(datalist[0]);
                 this.Left = int.Parse(datalist[1]);
 
-                string color = datafile[1]; // get color
-                if ( color == "#FF000000") {
-                    clockTimes.Foreground = Brushes.Black;
-                    clockDates.Foreground = Brushes.Black;
-                }
-                else
-                {
-                    clockTimes.Foreground = Brushes.White;
-                    clockDates.Foreground = Brushes.White;
-                }
+                SolidColorBrush color = (SolidColorBrush)(new BrushConverter().ConvertFrom(datafile[1])); // get color
+                clockTimes.Foreground = color;
+                clockDates.Foreground = color;
 
                 string size = datafile[2];
                 int scale = 2;
@@ -101,12 +96,22 @@ namespace DigitalClock
                 {
                     ChangeSize(120, 24);
                 }
+
+                this.Opacity = Convert.ToDouble(datafile[3]);
+                
+                if ((string)Registry.CurrentUser.GetValue(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\DigitalClock", null) == null)
+                {
+                    StartWithWindows.IsChecked = false;
+                }
+                else
+                {
+                    StartWithWindows.IsChecked = true;
+                }
             }
             catch
             {
                 this.Top = 0; this.Left = 0; // set defaut position
             }
-
         }
 
         // create new thread variable
@@ -122,7 +127,7 @@ namespace DigitalClock
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             string position = this.Top.ToString() + ";" + this.Left.ToString();
-            File.WriteAllLines("config.setting", new string[] { position, clockTimes.Foreground.ToString(), clockTimes.FontSize.ToString() });
+            File.WriteAllLines("config.setting", new string[] { position, clockTimes.Foreground.ToString(), clockTimes.FontSize.ToString(), this.Opacity.ToString() });
             _clock.Abort();
         }
 
@@ -135,18 +140,18 @@ namespace DigitalClock
         // change color contextmenu
         private void ChangeColor_Click(object sender, RoutedEventArgs e)
         {
-            string color = clockTimes.Foreground.ToString();
-            if (color == "#FF000000")
+            System.Windows.Forms.ColorDialog colorDialog = new System.Windows.Forms.ColorDialog();
+            colorDialog.AllowFullOpen = true;
+            
+            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                clockTimes.Foreground = Brushes.White;
-                clockDates.Foreground = Brushes.White;
-                color = "#00000000";
-            }
-            else
-            {
-                clockTimes.Foreground = Brushes.Black;
-                clockDates.Foreground = Brushes.Black;
-                color = "#FF000000";
+                System.Windows.Media.Color col = new System.Windows.Media.Color(); // convert wfcolor
+                col.A = colorDialog.Color.A;
+                col.B = colorDialog.Color.B;
+                col.G = colorDialog.Color.G;
+                col.R = colorDialog.Color.R;
+                clockTimes.Foreground = new SolidColorBrush(col);
+                clockDates.Foreground = new SolidColorBrush(col);
             }
         }
 
@@ -170,5 +175,85 @@ namespace DigitalClock
                 ChangeSize(72, 14);
             }
         }
+
+        // start with windows contextmenu unchecked event
+        private void StartWithWindows_Unchecked(object sender, RoutedEventArgs e)
+        {
+            try {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
+                {
+                    key.DeleteValue("DigitalClock", false);
+                }
+            }
+            catch { System.Windows.MessageBox.Show("Unable to set StartWithWindows to false."); }
+        }
+
+        // start with windows contextmenu checked event
+        private void StartWithWindows_Checked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
+                {
+                    key.SetValue("DigitalClock", "\"" + System.Reflection.Assembly.GetExecutingAssembly().Location + "\"");
+                }
+            }
+            catch { System.Windows.MessageBox.Show("Unable to set StartWithWindows to true."); }
+        }
+
+        #region OpacityMenuItemsEvent
+
+        private void opacity100(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 1;
+        }
+
+        private void opacity90(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.9;
+        }
+
+        private void opacity80(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.8;
+        }
+
+        private void opacity70(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.7;
+        }
+
+        private void opacity60(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.6;
+        }
+
+        private void opacity50(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.5;
+        }
+
+        private void opacity40(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.4;
+        }
+
+        private void opacity30(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.3;
+        }
+
+        private void opacity20(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.2;
+        }
+
+        private void opacity10(object sender, RoutedEventArgs e)
+        {
+            this.Opacity = 0.1;
+        }
+
+        #endregion
+
     }
 }
