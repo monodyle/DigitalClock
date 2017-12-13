@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 * Changed **ChangeColor** option from **Black (Default)** and **White** to multiple color of windows option.
 * Now you can using StartWithWindows instead of using start tricks.
 * **ChangeOpacity** had multi-option to customize.
-* Changed LINSENCE from GNU to MIT.
+* Changed LINCENSE from GNU to MIT.
 
 ### v2.0
 * Changed name from MonodyClock to DigitalClock
