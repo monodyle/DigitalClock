@@ -16,13 +16,16 @@ using System.Windows.Shapes;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
+
 namespace DigitalClock
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
         // change size function
         public void ChangeSize(int a, int b)
         {
@@ -76,10 +79,12 @@ namespace DigitalClock
                 this.Top = int.Parse(datalist[0]);
                 this.Left = int.Parse(datalist[1]);
 
+                // color brush
                 SolidColorBrush color = (SolidColorBrush)(new BrushConverter().ConvertFrom(datafile[1])); // get color
                 clockTimes.Foreground = color;
                 clockDates.Foreground = color;
 
+                // size
                 string size = datafile[2];
                 int scale = 2;
                 if (size == "94") { scale = 2; } else if (size == "72") { scale = 1; } else if (size == "120") { scale = 3; } else { scale = 1; }
@@ -97,8 +102,10 @@ namespace DigitalClock
                     ChangeSize(120, 24);
                 }
 
+                // opacity
                 this.Opacity = Convert.ToDouble(datafile[3]);
                 
+                // start with windows
                 if ((string)Registry.CurrentUser.GetValue(@"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\DigitalClock", null) == null)
                 {
                     StartWithWindows.IsChecked = false;
@@ -106,6 +113,17 @@ namespace DigitalClock
                 else
                 {
                     StartWithWindows.IsChecked = true;
+                }
+
+                // display on top
+                bool displayot = Convert.ToBoolean(datafile[4]);
+                if (displayot == true)
+                {
+                    DisplayOnTop.IsChecked = true;
+                }
+                else
+                {
+                    DisplayOnTop.IsChecked = false;
                 }
             }
             catch
@@ -121,14 +139,6 @@ namespace DigitalClock
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-        }
-
-        // close digital clock
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            string position = this.Top.ToString() + ";" + this.Left.ToString();
-            File.WriteAllLines("config.setting", new string[] { position, clockTimes.Foreground.ToString(), clockTimes.FontSize.ToString(), this.Opacity.ToString() });
-            _clock.Abort();
         }
 
         // close contextmenu
@@ -201,6 +211,7 @@ namespace DigitalClock
             catch { System.Windows.MessageBox.Show("Unable to set StartWithWindows to true."); }
         }
 
+        // change clock opacity
         #region OpacityMenuItemsEvent
 
         private void opacity100(object sender, RoutedEventArgs e)
@@ -254,6 +265,23 @@ namespace DigitalClock
         }
 
         #endregion
+
+        private void DisplayOnTop_Checked(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = true;
+        }
+        private void DisplayOnTop_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.Topmost = false;
+        }
+
+        // close digital clock
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string position = this.Top.ToString() + ";" + this.Left.ToString();
+            File.WriteAllLines("config.setting", new string[] { position, clockTimes.Foreground.ToString(), clockTimes.FontSize.ToString(), this.Opacity.ToString(), DisplayOnTop.IsChecked.ToString() });
+            _clock.Abort();
+        }
 
     }
 }

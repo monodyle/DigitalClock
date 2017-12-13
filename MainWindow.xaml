@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigitalClock"
         mc:Ignorable="d"
-        Title="MainWindow" Height="240" Width="480" Background="{x:Null}" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing" ResizeMode="NoResize">
+        Title="DigitalClock" Height="240" Width="480" Background="{x:Null}" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Closing="Window_Closing" ResizeMode="NoResize" WindowState="Minimized" IsTabStop="False" >
     <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem Header="ChangeColor" Click="ChangeColor_Click" />
                 <MenuItem Header="ChangeSize" Click="ChangeSize_Click" />
+                <Separator />
                 <MenuItem Header="ChangeOpacity">
                     <MenuItem Header="100%" Click="opacity100" />
                     <MenuItem Header="90%" Click="opacity90" />
@@ -23,6 +24,8 @@
                     <MenuItem Header="20%" Click="opacity20" />
                     <MenuItem Header="10%" Click="opacity10" />
                 </MenuItem>
+                <Separator />
+                <MenuItem x:Name="DisplayOnTop" Header="DisplayOnTop" IsCheckable="True" Unchecked="DisplayOnTop_Unchecked" Checked="DisplayOnTop_Checked" />
                 <MenuItem x:Name="StartWithWindows" Header="StartWithWindows" IsCheckable="True" Unchecked="StartWithWindows_Unchecked" Checked="StartWithWindows_Checked" />
                 <Separator />
                 <MenuItem Header="Close" Click="Close_Click" />

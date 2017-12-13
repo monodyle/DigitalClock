@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## Releases
+### v2.4
+* Added more 3 contextmenu: **ChangeOpacity**, **DisplayOnTop** and **StartWithWindows** (Thank for @khoaakt support)
+* Changed **ChangeColor** option from **Black (Default)** and **White** to multiple color of windows option.
+* Now you can using StartWithWindows instead of using start tricks.
+* **ChangeOpacity** had multi-option to customize.
+* Changed LINSENCE from GNU to MIT.
+
 ### v2.0
 * Changed name from MonodyClock to DigitalClock
 * Added more 2 contextmenu: **ChangeColor** and **ChangeSize**
