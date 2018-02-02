@@ -20,4 +20,12 @@ Require: .NET Framework 4.0
 [Download here](https://github.com/monodyle/DigitalClock/releases)
 
 
+# A little notice
+
+I'm sorry about this application can't display on top when start (It's just min windows and display nothing).
+
+You can use `Alt + Tab` to see that.
+
+Sorry about that, i will fix this in someday.
+
 Have a good time! From meh with 💗
